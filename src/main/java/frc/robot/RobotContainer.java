@@ -104,7 +104,7 @@ public class RobotContainer {
         
         elevatorsub.setDefaultCommand(
             new RunCommand(
-                elevator::hold,
+                elevator::moveTest,
                 elevatorsub
             )
         );
@@ -200,19 +200,19 @@ public class RobotContainer {
         );
 
 
-        con2.lt.whileTrue(
-            new RunCommand(
-                elevator::reverseMotor,
-                elevatorsub
-            )
-        );
+        // con2.lt.whileTrue(
+        //     new RunCommand(
+        //         elevator::reverseMotor,
+        //         elevatorsub
+        //     )
+        // );
 
-        con2.rt.whileTrue(
-            new RunCommand(
-                elevator::startMotor,
-                elevatorsub
-            )
-        );
+        // con2.rt.whileTrue(
+        //     new RunCommand(
+        //         elevator::startMotor,
+        //         elevatorsub
+        //     )
+        // );
 
 
         con2.rb.onTrue(

@@ -35,6 +35,10 @@ public class IntakeSubTalon extends SubsystemBase {
     phIntakeDoubleSolenoid.set(kReverse);
   }
 
+  public void toggleIntake(){
+    phIntakeDoubleSolenoid.toggle();
+  }
+
   public String getState(){
     if (phIntakeDoubleSolenoid.get() == kReverse) {
       state = "In";

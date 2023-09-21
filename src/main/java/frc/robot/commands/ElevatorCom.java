@@ -3,8 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSub;
 import edu.wpi.first.wpilibj.DigitalInput;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
@@ -29,7 +34,7 @@ public class ElevatorCom extends CommandBase {
 
   public void startMotor() {
     if(limitSwitchTop.get()) {
-      elevate.move(0.7);
+      elevate.move(RobotContainer.con2.getRightTriggerAxis());
     } else {
       elevate.hold();
     }
@@ -41,9 +46,39 @@ public class ElevatorCom extends CommandBase {
 
   public void reverseMotor() {
     if(limitSwitchBottom.get()) {
-      elevate.move(-0.5);
+      elevate.move(RobotContainer.con2.getLeftTriggerAxis());
     } else {
       elevate.hold();
+    }
+  }
+
+  public void moveTest() {
+    if (MathUtil.applyDeadband(-RobotContainer.con2.getRightY(), 0.1) < 0 && !limitSwitchBottom.get())
+    {
+      elevate.move(0);
+    } 
+    else if (MathUtil.applyDeadband(-RobotContainer.con2.getRightY(), 0.1) > 0 && !limitSwitchTop.get())
+    {
+      elevate.hold();
+    } 
+    else if (MathUtil.applyDeadband(-RobotContainer.con2.getRightY(), 0.1) > 0)
+    {
+      if (RobotContainer.clawsub.phClawDoubleSolenoid.get() == kReverse) 
+      {
+        elevate.move(MathUtil.applyDeadband(-RobotContainer.con2.getRightY()*0.7, 0.1));
+      } 
+      else
+      {
+        elevate.hold();
+      }
+    } 
+    else if (MathUtil.applyDeadband(-RobotContainer.con2.getRightY(), 0.1) == 0)
+    {
+      elevate.hold();
+    } 
+    else
+    {
+      elevate.move(MathUtil.applyDeadband(-RobotContainer.con2.getRightY()*0.5, 0.1));
     }
   }
 

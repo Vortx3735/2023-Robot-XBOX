@@ -9,7 +9,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.ClawSubTalon;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
-import frc.robot.subsystems.IntakeSubTalon;
+import frc.robot.RobotContainer;
 
 
 
@@ -17,7 +17,6 @@ import frc.robot.subsystems.IntakeSubTalon;
 public class ClawComTalon extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClawSubTalon claw;
-  private IntakeSubTalon intake;
   
 
   /**
@@ -32,10 +31,7 @@ public class ClawComTalon extends CommandBase {
   }
 
   public void open() {
-    if(intake.phIntakeDoubleSolenoid.get() == kForward)
-    {
-      claw.openClaw();
-    }
+    claw.openClaw();
   }
 
   public void grab() {
